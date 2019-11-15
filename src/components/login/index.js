@@ -4,6 +4,21 @@ import { onChangeEmail, onChangePassword, handleLogin } from '../../store'
 import styles from './login.module.css'
 
 const Login = (props) => {
+
+  const handleLogin = async () => {
+    const response = await props.handleLogin(props.email, props.password)
+    if(response.type === 'LOGIN_SUCCESS'){
+      props.history.push('/home')
+    }
+  }
+
+/* Optcion alternativa
+    props.handleLogin(props.email, props.password)
+    .then((response)=>{
+      console.log(response);
+    })
+  }*/
+
   return (
     <div className={styles.container}>
       <div className={styles.box}>
@@ -24,7 +39,7 @@ const Login = (props) => {
           onChange={props.onChangePassword}
           value={props.password}
         />
-        <button onClick={() => props.handleLogin(props.email, props.password)} className={styles.button}>
+        <button onClick={handleLogin} className={styles.button}>
           Login
           </button>
         {props.message && (
